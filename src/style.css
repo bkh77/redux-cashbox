@@ -1,0 +1,10 @@
+.editIcon{
+    cursor: pointer;
+    color: #0fb9b1;
+    margin-right: 10px;
+}
+
+.delIcon{
+    cursor: pointer;
+    color: #eb3b5a;    
+}
