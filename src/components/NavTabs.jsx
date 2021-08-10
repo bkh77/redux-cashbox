@@ -1,36 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { Nav, NavItem, NavLink } from "reactstrap";
 
-function NavTabs() {
-  const [select, setSelect] = useState(0);
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+      textDecoration:'none'
+    },
+  },
+}));
+
+export default function TextButtons() {
+  const classes = useStyles();
 
   return (
-    <div>
-      <Nav tabs>
-        <NavItem>
-          <Link to={"/cashbox"} onClick={() => setSelect(1)}>
-            <NavLink active={select === 1}>Kassa</NavLink>
-          </Link>
-        </NavItem>
-        <NavItem>
-          <Link to={"/users"} onClick={() => setSelect(2)}>
-            <NavLink active={select === 2}>Foydalanuvchilar</NavLink>
-          </Link>
-        </NavItem>
-        <NavItem>
-          <Link to={"/income"} onClick={() => setSelect(3)}>
-            <NavLink active={select === 3}>Kirim</NavLink>
-          </Link>
-        </NavItem>
-        <NavItem>
-          <Link to={"/expence"} onClick={() => setSelect(4)}>
-            <NavLink active={select === 4}>Chiqim</NavLink>
-          </Link>
-        </NavItem>
-      </Nav>
+    <div className={classes.root}>
+      <Link to="/cashbox">
+        <Button variant="contained">Kassa</Button>
+      </Link>
+      <Link to="/users">
+        <Button variant="contained">Foydalanuvchilar</Button>
+      </Link>
+      <Link to="/income">
+        <Button variant="contained" color="primary">
+          Kirim
+        </Button>
+      </Link>
+      <Link to="/expence">
+        <Button variant="contained" color="secondary">
+          Chiqim
+        </Button>
+      </Link>
     </div>
   );
 }
-
-export default NavTabs;

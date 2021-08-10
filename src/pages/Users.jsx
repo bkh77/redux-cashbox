@@ -1,11 +1,105 @@
-import React from 'react'
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import { addUsers, delUsers, editUsers } from "../redux/action/action";
+import UserModal from "../components/UserModal";
 
-function Users() {
-    return (
-        <div>
-            <h1>Users</h1>
+function Users({ users, addUsers, delUsers, editUsers }) {
+  const toggle = () => setModal(!modal);
+  const [modal, setModal] = useState(false);
+  const [currentItem, setCurrentItem] = useState(false);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const name = e.target[0].value;
+    const phone = e.target[1].value;
+    if (currentItem) {
+      editUsers({
+        id: currentItem.id,
+        name,
+        phone,
+      });
+      setCurrentItem("");
+      toggle();
+    } else {
+      if (name) {
+        addUsers({
+          id: users.length + 1,
+          name,
+          phone,
+        });
+        toggle();
+      }
+    }
+  }
+
+  function handleEdit(item) {
+    toggle();
+    setCurrentItem(item);
+  }
+
+  return (
+    <div>
+      <div className="card my-2 p-3">
+        <div className="row">
+          <div className="col text-center">
+            <h3>Foydalanuvchilar</h3>
+          </div>
+          <div className="col-md-2">
+            <button onClick={toggle} className="btn btn-outline-success w-100">
+              + Add
+            </button>
+          </div>
         </div>
-    )
+        <div className="row">
+          <div className="col">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nomi</th>
+                  <th>Telefon</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.id}</td>
+                    <td>{item.name}</td>
+                    <td>{item.phone}</td>
+                    <td>
+                      <EditIcon
+                        onClick={() => handleEdit(item)}
+                        className="editIcon"
+                      />{" "}
+                      <DeleteForeverIcon
+                        onClick={() => delUsers(item.id)}
+                        className="delIcon"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <UserModal
+        modal={modal}
+        toggle={toggle}
+        users={users}
+        handleSubmit={handleSubmit}
+        currentItem={currentItem}
+      />
+    </div>
+  );
 }
 
-export default Users
+export default connect(
+  ({ usersReducer }) => ({
+    users: usersReducer.users,
+  }),
+  { addUsers, delUsers, editUsers }
+)(Users);

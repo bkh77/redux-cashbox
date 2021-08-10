@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import CashModal from "../components/CashModal";
-import { addCashbox, delCashbox, editCashbox } from "../action/action";
+import { addCashbox, delCashbox, editCashbox } from "../redux/action/action";
 
 function Cashbox({ cashbox, addCashbox, delCashbox, editCashbox }) {
   const toggle = () => setModal(!modal);
