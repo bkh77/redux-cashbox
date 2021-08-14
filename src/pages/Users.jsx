@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { addUsers, delUsers, editUsers } from "../redux/action/action";
 import UserModal from "../components/UserModal";
+import { addUser, delUser, editUser } from "../redux/store/usersReducer";
 
-function Users({ users, addUsers, delUsers, editUsers }) {
+function Users({ users, addUser, delUser, editUser }) {
   const toggle = () => setModal(!modal);
   const [modal, setModal] = useState(false);
   const [currentItem, setCurrentItem] = useState(false);
@@ -15,7 +15,7 @@ function Users({ users, addUsers, delUsers, editUsers }) {
     const name = e.target[0].value;
     const phone = e.target[1].value;
     if (currentItem) {
-      editUsers({
+      editUser({
         id: currentItem.id,
         name,
         phone,
@@ -24,7 +24,7 @@ function Users({ users, addUsers, delUsers, editUsers }) {
       toggle();
     } else {
       if (name) {
-        addUsers({
+        addUser({
           id: users.length + 1,
           name,
           phone,
@@ -75,7 +75,7 @@ function Users({ users, addUsers, delUsers, editUsers }) {
                         className="editIcon"
                       />{" "}
                       <DeleteForeverIcon
-                        onClick={() => delUsers(item.id)}
+                        onClick={() => delUser(item.id)}
                         className="delIcon"
                       />
                     </td>
@@ -98,8 +98,8 @@ function Users({ users, addUsers, delUsers, editUsers }) {
 }
 
 export default connect(
-  ({ usersReducer }) => ({
-    users: usersReducer.users,
+  ({ usersReducer: { users } }) => ({
+    users,
   }),
-  { addUsers, delUsers, editUsers }
+  { addUser, delUser, editUser }
 )(Users);

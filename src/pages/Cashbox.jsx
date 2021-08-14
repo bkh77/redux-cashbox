@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import CashModal from "../components/CashModal";
-import { addCashbox, delCashbox, editCashbox } from "../redux/action/action";
+import { addCashbox, delCashbox, editCashbox } from "../redux/store/cashboxReducer";
 
 function Cashbox({ cashbox, addCashbox, delCashbox, editCashbox }) {
   const toggle = () => setModal(!modal);
@@ -14,12 +14,12 @@ function Cashbox({ cashbox, addCashbox, delCashbox, editCashbox }) {
     e.preventDefault();
     const name = e.target[0].value;
     if (currentItem) {
-        editCashbox({
-            id:currentItem.id,
-            name,
-        })
-        setCurrentItem('')
-        toggle()
+      editCashbox({
+        id: currentItem.id,
+        name,
+      });
+      setCurrentItem("");
+      toggle();
     } else {
       if (name) {
         addCashbox({
@@ -93,8 +93,8 @@ function Cashbox({ cashbox, addCashbox, delCashbox, editCashbox }) {
 }
 
 export default connect(
-  ({ cashboxReducer }) => ({
-    cashbox: cashboxReducer.cashbox,
+  ({ cashboxReducer: { cashbox } }) => ({
+    cashbox,
   }),
   { addCashbox, delCashbox, editCashbox }
 )(Cashbox);

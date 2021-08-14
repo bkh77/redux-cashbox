@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { addExpence, delExpence, editExpence } from "../redux/action/action";
 import ExpenceModal from "../components/ExpenceModal";
+import {
+  addExpence,
+  delExpence,
+  editExpence,
+} from "../redux/store/expenceReducer";
 
 function Expence({ expence, addExpence, delExpence, editExpence, cashbox }) {
   const toggle = () => setModal(!modal);
@@ -107,9 +111,9 @@ function Expence({ expence, addExpence, delExpence, editExpence, cashbox }) {
 }
 
 export default connect(
-  ({ expenceReducer, cashboxReducer }) => ({
-    expence: expenceReducer.expence,
-    cashbox: cashboxReducer.cashbox,
+  ({ expenceReducer: { expence }, cashboxReducer: { cashbox } }) => ({
+    expence,
+    cashbox,
   }),
   { addExpence, delExpence, editExpence }
 )(Expence);

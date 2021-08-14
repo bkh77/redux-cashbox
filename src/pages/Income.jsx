@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { addIncome, delIncome, editIncome } from "../redux/action/action";
+import { addIncome, delIncome, editIncome } from "../redux/store/incomeReducer";
 import IncomeModal from "../components/IncomeModal";
 
-function Users({ income, addIncome, delIncome, editIncome, cashbox }) {
+function Income({ income, addIncome, delIncome, editIncome, cashbox }) {
   const toggle = () => setModal(!modal);
   const [modal, setModal] = useState(false);
   const [currentItem, setCurrentItem] = useState(false);
@@ -107,9 +107,9 @@ function Users({ income, addIncome, delIncome, editIncome, cashbox }) {
 }
 
 export default connect(
-  ({ incomeReducer, cashboxReducer }) => ({
-    income: incomeReducer.income,
-    cashbox: cashboxReducer.cashbox,
+  ({ incomeReducer: { income }, cashboxReducer: { cashbox } }) => ({
+    income,
+    cashbox,
   }),
   { addIncome, delIncome, editIncome }
-)(Users);
+)(Income);
