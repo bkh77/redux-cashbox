@@ -20,17 +20,17 @@ const IncomeModal = ({
           <form id="form" onSubmit={handleSubmit}>
             <select
               className="form-select mb-3"
-              defaultValue={currentItem.user}
+              defaultValue={currentItem.userID}
             >
               {users.map((item) => (
-                <option key={item.id} value={item.name}>
+                <option key={item.id} value={item.id}>
                   {item.name}
                 </option>
               ))}
             </select>
             <select
               className="form-select mb-3"
-              defaultValue={currentItem.cashbox}
+              defaultValue={currentItem.cashboxID}
             >
               {cashbox.map((item) => (
                 <option key={item.id} value={item.id}>

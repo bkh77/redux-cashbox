@@ -7,6 +7,7 @@ const cashSlice = createSlice({
       { id: 1, name: "kassa1" },
       { id: 2, name: "kassa2" },
       { id: 3, name: "kassa3" },
+      { id: 4, name: "kassa4" },
     ],
   },
   reducers: {

@@ -4,15 +4,14 @@ import NavTabs from "./components/NavTabs";
 import Cashbox from "./pages/Cashbox";
 import Expence from "./pages/Expence";
 import Income from "./pages/Income";
+import Reports from "./pages/Reports";
 import Users from "./pages/Users";
 
 function App() {
   return (
     <div className="container">
-      <div className="row">
-        <div className="col my-2">
+      <div className="row my-2">
           <NavTabs />
-        </div>
       </div>
       <div className="row">
         <div className="col">
@@ -21,6 +20,7 @@ function App() {
             <Route path={"/users"} component={Users} />
             <Route path={"/income"} component={Income} />
             <Route path={"/expence"} component={Expence} />
+            <Route path={"/reports"} component={Reports} />
           </Switch>
         </div>
       </div>

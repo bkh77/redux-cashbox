@@ -8,3 +8,7 @@
     cursor: pointer;
     color: #eb3b5a;    
 }
+
+.card{
+    box-shadow: 1px 2px 4px 1px #adadad;
+}

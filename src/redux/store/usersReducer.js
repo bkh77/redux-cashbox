@@ -7,6 +7,7 @@ const usersSlice = createSlice({
       { id: 1, name: "Stive Jobs", phone: 990000102 },
       { id: 2, name: "Elon Musk", phone: 990000103 },
       { id: 3, name: "Jeff Bezos", phone: 990000104 },
+      { id: 4, name: "Bakhtiyor", phone: 990000106 },
     ],
   },
   reducers: {

@@ -33,6 +33,11 @@ export default function TextButtons() {
           Chiqim
         </Button>
       </Link>
+      <Link to="/reports">
+        <Button variant="contained" color="primary">
+          Reports
+        </Button>
+      </Link>
     </div>
   );
 }

@@ -5,33 +5,33 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { addIncome, delIncome, editIncome } from "../redux/store/incomeReducer";
 import IncomeModal from "../components/IncomeModal";
 
-function Income({ income, addIncome, delIncome, editIncome, cashbox }) {
+function Income({ income, addIncome, delIncome, editIncome, cashbox, users }) {
   const toggle = () => setModal(!modal);
   const [modal, setModal] = useState(false);
   const [currentItem, setCurrentItem] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
-    const user = e.target[0].value;
-    const cashbox = parseFloat(e.target[1].value);
-    const amount = e.target[2].value;
+    const userID = parseFloat(e.target[0].value);
+    const cashboxID = parseFloat(e.target[1].value);
+    const amount = parseFloat(e.target[2].value);
     const date = e.target[3].value;
     if (currentItem) {
       editIncome({
         id: currentItem.id,
-        user,
-        cashbox,
+        userID,
+        cashboxID,
         amount,
         date,
       });
       setCurrentItem("");
       toggle();
     } else {
-      if (user && cashbox && amount && date) {
+      if (userID && cashboxID && amount && date) {
         addIncome({
           id: income.length + 1,
-          user,
-          cashbox,
+          userID,
+          cashboxID,
           amount,
           date,
         });
@@ -75,9 +75,9 @@ function Income({ income, addIncome, delIncome, editIncome, cashbox }) {
                 {income.map((item) => (
                   <tr key={item.id}>
                     <td>{item.id}</td>
-                    <td>{item.user}</td>
+                    <td>{users.find((i) => i.id === item.userID).name}</td>
                     <td>{item.amount}</td>
-                    <td>{cashbox.find((i) => i.id === item.cashbox).name}</td>
+                    <td>{cashbox.find((i) => i.id === item.cashboxID).name}</td>
                     <td>{item.date}</td>
                     <td>
                       <EditIcon
@@ -107,9 +107,14 @@ function Income({ income, addIncome, delIncome, editIncome, cashbox }) {
 }
 
 export default connect(
-  ({ incomeReducer: { income }, cashboxReducer: { cashbox } }) => ({
+  ({
+    incomeReducer: { income },
+    cashboxReducer: { cashbox },
+    usersReducer: { users },
+  }) => ({
     income,
     cashbox,
+    users,
   }),
   { addIncome, delIncome, editIncome }
 )(Income);

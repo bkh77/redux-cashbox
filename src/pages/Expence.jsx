@@ -9,33 +9,40 @@ import {
   editExpence,
 } from "../redux/store/expenceReducer";
 
-function Expence({ expence, addExpence, delExpence, editExpence, cashbox }) {
+function Expence({
+  expence,
+  addExpence,
+  delExpence,
+  editExpence,
+  cashbox,
+  users,
+}) {
   const toggle = () => setModal(!modal);
   const [modal, setModal] = useState(false);
   const [currentItem, setCurrentItem] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
-    const user = e.target[0].value;
-    const cashbox = parseFloat(e.target[1].value);
-    const amount = e.target[2].value;
+    const userID = parseFloat(e.target[0].value);
+    const cashboxID = parseFloat(e.target[1].value);
+    const amount = parseFloat(e.target[2].value);
     const date = e.target[3].value;
     if (currentItem) {
       editExpence({
         id: currentItem.id,
-        user,
-        cashbox,
+        userID,
+        cashboxID,
         amount,
         date,
       });
       setCurrentItem("");
       toggle();
     } else {
-      if (user && cashbox && amount && date) {
+      if (userID && cashboxID && amount && date) {
         addExpence({
           id: expence.length + 1,
-          user,
-          cashbox,
+          userID,
+          cashboxID,
           amount,
           date,
         });
@@ -79,9 +86,9 @@ function Expence({ expence, addExpence, delExpence, editExpence, cashbox }) {
                 {expence.map((item) => (
                   <tr key={item.id}>
                     <td>{item.id}</td>
-                    <td>{item.user}</td>
+                    <td>{users.find((i) => i.id === item.userID).name}</td>
                     <td>{item.amount}</td>
-                    <td>{cashbox.find((i) => i.id === item.cashbox).name}</td>
+                    <td>{cashbox.find((i) => i.id === item.cashboxID).name}</td>
                     <td>{item.date}</td>
                     <td>
                       <EditIcon
@@ -111,9 +118,14 @@ function Expence({ expence, addExpence, delExpence, editExpence, cashbox }) {
 }
 
 export default connect(
-  ({ expenceReducer: { expence }, cashboxReducer: { cashbox } }) => ({
+  ({
+    expenceReducer: { expence },
+    cashboxReducer: { cashbox },
+    usersReducer: { users },
+  }) => ({
     expence,
     cashbox,
+    users,
   }),
   { addExpence, delExpence, editExpence }
 )(Expence);
